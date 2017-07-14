@@ -1,0 +1,5 @@
+# kickstart travis.
+language: java
+jdk:
+  - oraclejdk8
+install: gradle clean build
