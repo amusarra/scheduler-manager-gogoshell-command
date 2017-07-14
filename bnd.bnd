@@ -1,0 +1,18 @@
+Bundle-Name: Scheduler Manager Gogo Shell Command
+Bundle-Description: Gogo Shell Command Series for Liferay JOBS Management (Example: job list, start and stop, etc.).
+Bundle-SymbolicName: it.dontesta.labs.liferay.gogo.scheduler.manager
+Bundle-Version: 1.0.0
+Bundle-Category: Scheduler Manager
+Bundle-ContactAddress: https://www.dontesta.it/contatti/
+Bundle-Developers: antonio.musarra@gmail.com
+Bundle-DocURL: https://www.dontesta.it/scheduler-manager-gogoshell-command
+Bundle-Copyright: Antonio Musarra's Blog (c) 2017
+Bundle-License: MIT License
+Bundle-Icon: Console
+Bundle-Vendor: Antonio Musarra's Blog
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: \
+	org.apache.felix.service.command;status=provisional;version='[0.10,1)',\
+	!org.antlr.stringtemplate,\
+	!org.slf4j.impl,\
+	*
