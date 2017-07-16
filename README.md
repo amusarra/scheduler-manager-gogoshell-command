@@ -61,7 +61,9 @@ The list of commands obtained are those described at the beginning. You can see 
 	      String   The GroupName
 	      String   The StorageType {MEMORY, MEMORY_CLUSTERED, PERSISTED}
 
-Command 1 - Scheduler:info 
+Command 1 - Scheduler:info
+
+The storage types are defined in [StorageType](https://github.com/liferay/liferay-portal/blob/master/portal-kernel/src/com/liferay/portal/kernel/scheduler/StorageType.java "StorageType Enumeration")   
 
 	g! help scheduler:list
 	list - List of the all Jobs filtered by state (default ALL)
@@ -70,6 +72,8 @@ Command 1 - Scheduler:info
 	      --status, -s   Filter the jobs by trigger state {state: COMPLETE,NORMAL,EXPIRED,PAUSED,UNSCHEDULED} [optional]
 
 Command 2 - List of the all Jobs filtered by state (default ALL) 
+
+The states of the trigger defined in [TriggerState Enumeration](https://github.com/liferay/liferay-portal/blob/master/portal-kernel/src/com/liferay/portal/kernel/scheduler/TriggerState.java "TriggerState Enumeration") 
 
 	g! help scheduler:pause
 	pause - Pause one or more Jobs by Job Name, Group Name and Storage Type
@@ -96,27 +100,46 @@ Command 4 - Resume one or more Jobs by Job Name, Group Name and Storage Type
 
 	g! scheduler:list
 
-![altText](image.png "title") 
+Command 8 - List of the jobs filtered by state (default state is ALL)
+
+![List of the jobs filtered by state](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-list-all.png "List of the jobs filtered by state") 
 
 
 	g! scheduler:list --status PAUSED
-![altText](image.png "title") 
+Command 9 - List of the jobs filtered by state with PAUSED value 
+
+![List of the jobs filtered by state](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-list-paused.png "List of the jobs filtered by state") 
 
 
 #### 3.2 Scheduler Pause and Resume
 
 	g! scheduler:pause com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener MEMORY_CLUSTERED
-![altText](image.png "title")
-
+Command 8 - Pause the job with the name com.liferay...RecentDocumentsMessageListener
 
 	scheduler:resume com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener MEMORY_CLUSTERED
-![altText](image.png "title") 
+
+Command 9 - Resume the job with the name com.liferay...RecentDocumentsMessageListener
 
 #### 3.3 Scheduler Info
 
 
 	g! scheduler:info com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener MEMORY_CLUSTERED
-![altText](image.png "title") 
+Command 10 - Detail of the job with the name com.liferay...RecentDocumentsMessageListener
+
+This command (compared to the list of jobs) shows additional information:
+
+1.  Cron Expression
+2.  Destination Name
+3.	Job Exceptions
+
+![Detail of the jobs](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-info.png "Detail of the jobs") 
+
+
+### 4. Resources
+
+1.  [Liferay 7 CE/Liferay DXP Scheduled Task](https://web.liferay.com/it/web/user.26526/blog/-/blogs/liferay-7-ce-liferay-dxp-scheduled-tasks "Liferay 7 CE/Liferay DXP Scheduled Tasks") post by David H Nebinger (on Liferay Blog)
+2.  [Scheduler Example](https://github.com/amusarra/liferay-italia-bo-usergroup/tree/master/modules/application-configuration/scheduler-app "Scheduler Example") on my GitHub account
+3.	[How to implement a custom Gogo shell command for Liferay 7](http://www.marconapolitano.it/en/liferay/86-how-to-implement-a-custom-gogo-shell-command-for-liferay-7.html "How to implement a custom Gogo shell command for Liferay 7") post by Marco Napolitano
 
 	      
 ### Project License
