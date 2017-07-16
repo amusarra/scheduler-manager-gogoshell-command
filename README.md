@@ -1,5 +1,7 @@
 # Scheduler Manager Gogo Shell Command
 
+[![Build Status](https://travis-ci.org/amusarra/scheduler-manager-gogoshell-command.svg?branch=master)](https://travis-ci.org/amusarra/scheduler-manager-gogoshell-command)
+
 This project implements a set of Gogo Shell commands that handle Liferay jobs. The tasks you can perform are:
 
 1.  **list**: List of the all Jobs filtered by state (default ALL)
