@@ -19,7 +19,6 @@ To start testing the plugin you need:
 2.  build project
 3.	deploy OSGi module (it.dontesta.labs.liferay.gogo.scheduler.manager-$version.jar)
 
-
 	$ git clone https://github.com/amusarra/scheduler-manager-gogoshell-command.git
 	$ cd scheduler-manager-gogoshell-command
 	$ ./gradlew clean build
