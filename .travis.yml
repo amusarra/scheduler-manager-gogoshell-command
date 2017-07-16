@@ -2,4 +2,4 @@
 language: java
 jdk:
   - oraclejdk8
-install: gradle clean build
+install: ./gradlew clean build
