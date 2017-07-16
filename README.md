@@ -6,8 +6,8 @@ This project implements a set of Gogo Shell commands that handle Liferay jobs. T
 
 1.  **list**: List of the all Jobs filtered by state (default ALL)
 2.  **info**: Print detail info of the job
-3.	**pause**: Pause one or more Jobs by Job Name, Group Name and Storage Type
-4.	**resume**: Resume one or more Jobs by Job Name, Group Name and Storage Type
+3.  **pause**: Pause one or more Jobs by Job Name, Group Name and Storage Type
+4.  **resume**: Resume one or more Jobs by Job Name, Group Name and Storage Type
 
 _The version of this project was tested on Liferay 7 CE GA4 and Liferay DXP SP14_
 
@@ -15,9 +15,11 @@ _The version of this project was tested on Liferay 7 CE GA4 and Liferay DXP SP14
 To start testing the plugin you need:
 
 
-1.  clone this repository
-2.  build project
-3.	deploy OSGi module (it.dontesta.labs.liferay.gogo.scheduler.manager-$version.jar)
+1.   clone this repository
+2.   build project
+3.   deploy OSGi module (it.dontesta.labs.liferay.gogo.scheduler.manager-$version.jar)
+
+From your terminal execute the commands:
 
 	$ git clone https://github.com/amusarra/scheduler-manager-gogoshell-command.git
 	$ cd scheduler-manager-gogoshell-command
@@ -131,7 +133,7 @@ This command (compared to the list of jobs) shows additional information:
 
 1.  Cron Expression
 2.  Destination Name
-3.	Job Exceptions
+3.  Job Exceptions
 
 ![Detail of the jobs](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-info.png "Detail of the jobs") 
 
