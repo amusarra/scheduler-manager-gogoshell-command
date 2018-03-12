@@ -32,6 +32,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.pojo.FiredTrigger;
+import it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.util.QuartzConnectionProvider;
+import it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.util.QuartzUtils;
 import org.apache.felix.service.command.Descriptor;
 import org.apache.felix.service.command.Parameter;
 import org.osgi.service.component.annotations.Component;
@@ -59,9 +62,12 @@ import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
 				"osgi.command.function=list", 
 				"osgi.command.function=info", 
 				"osgi.command.function=pause", 
-				"osgi.command.function=resume", 
-				"osgi.command.scope=scheduler" 
-		}, 
+				"osgi.command.function=resume",
+				"osgi.command.function=jobIsFired",
+				"osgi.command.function=jobsIsFired",
+				"osgi.command.function=listJobsInProgress",
+				"osgi.command.scope=scheduler"
+		},
 		service = Object.class
 )
 @Descriptor("Gogo Shell Command Series for Liferay "
@@ -78,7 +84,7 @@ public class SchedulerManagerCommand {
 	 */
 	@Descriptor("List of the all Jobs filtered by state (default ALL)")
 	public void list(
-		@Descriptor("Filter the jobs by trigger state {state: COMPLETE,NORMAL,EXPIRED,PAUSED,UNSCHEDULED}") 
+		@Descriptor("Filter the jobs by trigger state {state: COMPLETE,NORMAL,EXPIRED,PAUSED,UNSCHEDULED}")
 		@Parameter(names = {
 			"--status", "-s"
 		}, absentValue = "ALL") String triggerState)
@@ -282,6 +288,76 @@ public class SchedulerManagerCommand {
 	}
 
 	/**
+	 * Return the count of the Job by groupName that are running
+	 *
+	 * @param groupName
+	 *            The group name of the job
+	 * @throws PortalException
+	 */
+	@Descriptor("Return the count of the Job by groupName that are running. ONLY QUARTZ PERSISTED JOB!!!")
+	public int jobsIsFired(
+		@Descriptor("The GroupName") String groupName)
+		throws PortalException {
+
+		return QuartzUtils.getFiredJobsCount(groupName);
+	}
+
+	/**
+	 * Return true if the Job running false otherwise
+	 *
+	 * @param jobName
+	 *            The job name of the job
+	 * @throws PortalException
+	 */
+	@Descriptor("Return true if the Job running false otherwise. ONLY QUARTZ PERSISTED JOB!!!")
+	public boolean jobIsFired(
+		@Descriptor("The JobName") String jobName)
+		throws PortalException {
+
+		if (QuartzUtils.getFiredJobCount(jobName) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Print the list of the jobs that are in progress
+	 *
+	 * @param groupName
+	 *            The job name of the job
+	 * @throws PortalException
+	 */
+	@Descriptor("Print the list of the jobs that are in progress. ONLY QUARTZ PERSISTED JOB!!!")
+	public void listJobsInProgress(
+		@Descriptor("The GroupName") String groupName)
+		throws PortalException {
+
+		System.out.println(
+			ansi().eraseScreen().render(
+				"@|green List of the jobs that are in progress filtered by groupName:|@ @|red " + groupName + " |@"));
+		System.out.println(getJobsListInProgressTableHeader());
+		System.out.println(getJobsListInProgressTableRows(groupName));
+
+
+	}
+
+	/**
+	 * Return the jobs list in progress table header.
+	 *
+	 * @return String Formatted table header
+	 */
+	private String getJobsListInProgressTableHeader() {
+		AsciiTable at = new AsciiTable();
+		at.addRule();
+		at.addRow(
+			"Job Name", "Group Name", "Instance Name", "Fired Time",
+			"State");
+		at.addRule();;
+		return at.render(160);
+	}
+
+	/**
 	 * Return the jobs list table header.
 	 * 
 	 * @return String Formatted table header
@@ -295,7 +371,45 @@ public class SchedulerManagerCommand {
 		at.addRule();;
 		return at.render(160);
 	}
-	
+
+	/**
+	 * Return the jobs list in progress table rows.
+	 *
+	 * @param groupName
+	 * @return String Formatted table rows
+	 */
+
+	private String getJobsListInProgressTableRows(String groupName) {
+		List<FiredTrigger> firedTriggerList =
+			QuartzUtils.getFiredTrigger(groupName);
+
+		AsciiTable at = new AsciiTable();
+		SimpleDateFormat df = new SimpleDateFormat(DateUtil.ISO_8601_PATTERN);
+
+		firedTriggerList.forEach(firedTrigger -> {
+			Collection<String> columnsValue = new ArrayList<>();
+
+			columnsValue.add(firedTrigger.getTriggerName());
+			columnsValue.add(firedTrigger.getTriggerGroup());
+			columnsValue.add(firedTrigger.getInstanceName());
+			columnsValue.add(
+				 df.format(firedTrigger.getFiredTime()
+				 ));
+			columnsValue.add(firedTrigger.getState());
+
+			at.addRow(columnsValue);
+			at.addRule();
+		});
+
+		if (firedTriggerList.size() == 0) {
+			at.addRow("No Jobs in progress found");
+			at.setTextAlignment(TextAlignment.CENTER);
+			at.addRule();
+		}
+
+		return at.render(160);
+	}
+
 	/**
 	 * Return the jobs list table rows.
 	 * 
