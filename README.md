@@ -11,7 +11,13 @@ This project implements a set of Gogo Shell commands that handle Liferay jobs. T
 3.  **pause**: Pause one or more Jobs by Job Name, Group Name and Storage Type
 4.  **resume**: Resume one or more Jobs by Job Name, Group Name and Storage Type
 
-_The version of this project was tested on Liferay 7 CE GA4 and Liferay DXP SP14_
+The following commands are valid only for PERSISTED jobs and managed by QUARTZ:
+
+1. **jobIsFired**: Return true if the Job running false otherwise
+2. **jobsIsFired**: Return the count of the Job by groupName that are running
+3. **listJobsInProgress**: Print the list of the jobs that are in progress.
+
+_The version of this project was tested on Liferay 7 CE GA4/GA5 and Liferay DXP SP14_
 
 ### 1. Getting Started
 To start testing the plugin you need:
@@ -55,6 +61,9 @@ Via Gogo Shell we check deployed commands (that have scheduler as scope).
 		scheduler:list
 		scheduler:pause
 		scheduler:resume
+		scheduler:jobIsFired
+		scheduler:jobsIsFired
+		scheduler:listJobsInProgress
 The list of commands obtained are those described at the beginning. You can see for each command the usage, by this command (_help scope:commandName_). Follow the help of the four available commands.
 
 	g! help scheduler:info
@@ -99,6 +108,29 @@ Command 3 - Pause one or more Jobs by Job Name, Group Name and Storage Type
 	      String   The StorageType {MEMORY, MEMORY_CLUSTERED, PERSISTED}
 Command 4 - Resume one or more Jobs by Job Name, Group Name and Storage Type 
 
+	g! help scheduler:jobIsFired
+    
+    jobIsFired - Return true if the Job running false otherwise
+       scope: scheduler
+       parameters:
+          String   The JobName
+Command 5 - Return true if the Job running false otherwise
+
+	g! help scheduler:jobsIsFired
+    
+    jobsIsFired - Return the count of the Job by groupName that are running
+       scope: scheduler
+       parameters:
+          String   The GroupName
+Command 6 - Return the count of the Job by groupName that are running
+
+	g! help scheduler:listJobsInProgress
+    
+    listJobsInProgress - Print the list of the jobs that are in progress
+       scope: scheduler
+       parameters:
+          String   The GroupName
+Command 7 - Print the list of the jobs that are in progress 
 
 #### 3.1 Scheduler List
 
@@ -119,17 +151,17 @@ Command 9 - List of the jobs filtered by state with PAUSED value
 #### 3.2 Scheduler Pause and Resume
 
 	g! scheduler:pause com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener MEMORY_CLUSTERED
-Command 8 - Pause the job with the name com.liferay...RecentDocumentsMessageListener
+Command 10 - Pause the job with the name com.liferay...RecentDocumentsMessageListener
 
 	scheduler:resume com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener MEMORY_CLUSTERED
 
-Command 9 - Resume the job with the name com.liferay...RecentDocumentsMessageListener
+Command 11 - Resume the job with the name com.liferay...RecentDocumentsMessageListener
 
 #### 3.3 Scheduler Info
 
 
 	g! scheduler:info com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener MEMORY_CLUSTERED
-Command 10 - Detail of the job with the name com.liferay...RecentDocumentsMessageListener
+Command 12 - Detail of the job with the name com.liferay...RecentDocumentsMessageListener
 
 This command (compared to the list of jobs) shows additional information:
 
@@ -138,6 +170,21 @@ This command (compared to the list of jobs) shows additional information:
 3.  Job Exceptions
 
 ![Detail of the jobs](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-info.png "Detail of the jobs") 
+
+#### 3.4 Scheduler Check if job fired
+
+	g! scheduler:jobIsFired com.liferay...RecentDocumentsMessageListener
+    false
+
+	g! scheduler:jobIsFired com.liferay...RecentDocumentsMessageListener
+    true
+Command 13 - Check if job fired with the name com.liferay...RecentDocumentsMessageListener
+
+#### 3.5 Scheduler Count job for group fired
+
+	g! scheduler:jobsIsFired MyJobGroup
+    10
+Command 14 - Count job for group MyJobGroup fired
 
 
 ### 4. Resources
