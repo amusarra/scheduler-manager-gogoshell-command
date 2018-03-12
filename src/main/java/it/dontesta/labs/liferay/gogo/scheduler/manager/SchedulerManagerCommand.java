@@ -195,7 +195,7 @@ public class SchedulerManagerCommand {
 	}
 
 	/**
-	 * Pause one or more Jobs by Job Name, Group Name and Storage Type
+	 * Pause Job by Job Name, Group Name and Storage Type
 	 * 
 	 * @param jobName
 	 *            The name of the job
@@ -206,7 +206,7 @@ public class SchedulerManagerCommand {
 	 *            MEMORY, MEMORY_CLUSTERED, PERSISTED
 	 * @throws PortalException
 	 */
-	@Descriptor("Pause one or more Jobs by Job Name, Group Name and Storage Type")
+	@Descriptor("Pause Job by Job Name, Group Name and Storage Type")
 	public void pause(
 		@Descriptor("The JobName") String jobName,
 		@Descriptor("The GroupName") String groupName,
@@ -217,9 +217,29 @@ public class SchedulerManagerCommand {
 			jobName, groupName, StorageType.valueOf(storageType));
 	}
 
-	
 	/**
-	 * Resume one or more Jobs by Job Name, Group Name and Storage Type
+	 * Pause Jobs by Group Name and Storage Type
+	 *
+	 * @param groupName
+	 *            The group name of the job
+	 * @param storageType
+	 *            The Storage Type of the job. The Storage Type values are
+	 *            MEMORY, MEMORY_CLUSTERED, PERSISTED
+	 * @throws PortalException
+	 */
+	@Descriptor("Pause Jobs by Group Name and Storage Type")
+	public void pause(
+		@Descriptor("The GroupName") String groupName,
+		@Descriptor("The StorageType {MEMORY, MEMORY_CLUSTERED, PERSISTED}") String storageType)
+		throws PortalException {
+
+		SchedulerEngineHelperUtil.pause(
+			groupName, StorageType.valueOf(storageType));
+	}
+
+
+	/**
+	 * Resume Job by Job Name, Group Name and Storage Type
 	 * 
 	 * @param jobName
 	 *            The name of the job
@@ -230,7 +250,7 @@ public class SchedulerManagerCommand {
 	 *            MEMORY, MEMORY_CLUSTERED, PERSISTED
 	 * @throws PortalException
 	 */
-	@Descriptor("Resume one or more Jobs by Job Name, Group Name and Storage Type")
+	@Descriptor("Resume Job by Job Name, Group Name and Storage Type")
 	public void resume(
 		@Descriptor("The JobName") String jobName,
 		@Descriptor("The GroupName") String groupName,
@@ -239,6 +259,26 @@ public class SchedulerManagerCommand {
 
 		SchedulerEngineHelperUtil.resume(
 			jobName, groupName, StorageType.valueOf(storageType));
+	}
+
+	/**
+	 * Resume Jobs by Group Name and Storage Type
+	 *
+	 * @param groupName
+	 *            The group name of the job
+	 * @param storageType
+	 *            The Storage Type of the job. The Storage Type values are
+	 *            MEMORY, MEMORY_CLUSTERED, PERSISTED
+	 * @throws PortalException
+	 */
+	@Descriptor("Resume Jobs by Group Name and Storage Type")
+	public void resume(
+		@Descriptor("The GroupName") String groupName,
+		@Descriptor("The StorageType {MEMORY, MEMORY_CLUSTERED, PERSISTED}") String storageType)
+		throws PortalException {
+
+		SchedulerEngineHelperUtil.resume(
+			groupName, StorageType.valueOf(storageType));
 	}
 
 	/**
