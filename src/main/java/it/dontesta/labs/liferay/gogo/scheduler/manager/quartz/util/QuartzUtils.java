@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +124,11 @@ public class QuartzUtils {
 				firedTrigger.setTriggerGroup(rs.getString(_FIELD_TRIGGER_GROUP));
 				firedTrigger.setInstanceName(rs.getString(_FIELD_INSTANCE_NAME));
 				firedTrigger.setState(rs.getString(_FIELD_STATE));
-				firedTrigger.setFiredTime(rs.getString(_FIELD_FIRED_TIME));
+
+				firedTrigger.setFiredTime(
+					new Timestamp(
+						Long.parseLong(rs.getString(_FIELD_FIRED_TIME)))
+				);
 
 				firedTriggersList.add(firedTrigger);
 			}

@@ -12,7 +12,7 @@ public class FiredTrigger {
 	private String triggerName;
 	private String triggerGroup;
 	private String instanceName;
-	private String firedTime;
+	private Date firedTime;
 	private String state;
 
 
@@ -56,11 +56,11 @@ public class FiredTrigger {
 		this.instanceName = instanceName;
 	}
 
-	public String getFiredTime() {
+	public Date getFiredTime() {
 		return firedTime;
 	}
 
-	public void setFiredTime(String firedTime) {
+	public void setFiredTime(Date firedTime) {
 		this.firedTime = firedTime;
 	}
 
