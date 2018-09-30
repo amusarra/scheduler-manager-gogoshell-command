@@ -32,8 +32,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.liferay.petra.string.StringPool;
 import it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.pojo.FiredTrigger;
-import it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.util.QuartzConnectionProvider;
 import it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.util.QuartzUtils;
 import org.apache.felix.service.command.Descriptor;
 import org.apache.felix.service.command.Parameter;
@@ -45,7 +45,6 @@ import com.liferay.portal.kernel.scheduler.SchedulerException;
 import com.liferay.portal.kernel.scheduler.StorageType;
 import com.liferay.portal.kernel.scheduler.messaging.SchedulerResponse;
 import com.liferay.portal.kernel.util.DateUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 
 import de.vandermeer.asciitable.AsciiTable;
@@ -80,7 +79,7 @@ public class SchedulerManagerCommand {
 	 * @param triggerState
 	 *            The trigger state. Possible values are
 	 *            COMPLETE,NORMAL,EXPIRED,PAUSED,UNSCHEDULED
-	 * @throws PortalException
+	 * @throws PortalException In the case of errors.
 	 */
 	@Descriptor("List of the all Jobs filtered by state (default ALL)")
 	public void list(
@@ -92,7 +91,8 @@ public class SchedulerManagerCommand {
 
 		System.out.println(
 			ansi().eraseScreen().render(
-				"@|green List of the jobs filtered by state:|@ @|red " + triggerState + " |@"));
+				"@|green List of the jobs filtered by state:|@ @|red " +
+				triggerState + " |@"));
 		System.out.println(getJobsListTableHeader());
 		System.out.println(getJobsListTableRows(triggerState));
 	}
@@ -123,7 +123,7 @@ public class SchedulerManagerCommand {
 		if (Validator.isNull(schedulerResponse)) {
 			throw new PortalException("Job not found with the name " + jobName);
 		}
-		
+
 		SimpleDateFormat df = new SimpleDateFormat(DateUtil.ISO_8601_PATTERN);
 		AsciiTable at = new AsciiTable();
 
@@ -176,20 +176,24 @@ public class SchedulerManagerCommand {
 			at.addRule();
 		}
 
-		at.addRow("Cron Expression", SchedulerEngineHelperUtil.getCronText(Calendar.getInstance(), false));
+		at.addRow(
+			"Cron Expression",
+			SchedulerEngineHelperUtil.getCronText(Calendar.getInstance(),
+				false));
 		at.addRule();
 		at.addRow("Destination Name", schedulerResponse.getDestinationName());
 		at.addRule();
 		at.addRow("Storage Type", schedulerResponse.getStorageType());
 		at.addRule();
-		
+
 		if (Validator.isNotNull(SchedulerEngineHelperUtil.getJobExceptions(
-				jobName, groupName, StorageType.valueOf(storageType)))) {
+			jobName, groupName, StorageType.valueOf(storageType)))) {
 			at.addRow(
 				"Job Exceptions", SchedulerEngineHelperUtil.getJobExceptions(
 					jobName, groupName, StorageType.valueOf(storageType)));
 			at.addRule();
-		} else {
+		}
+		else {
 			at.addRow("Job Exceptions", StringPool.DASH);
 			at.addRule();
 		}
@@ -210,7 +214,7 @@ public class SchedulerManagerCommand {
 	 * @param storageType
 	 *            The Storage Type of the job. The Storage Type values are
 	 *            MEMORY, MEMORY_CLUSTERED, PERSISTED
-	 * @throws PortalException
+	 * @throws PortalException In the case of errors.
 	 */
 	@Descriptor("Pause Job by Job Name, Group Name and Storage Type")
 	public void pause(
@@ -218,7 +222,7 @@ public class SchedulerManagerCommand {
 		@Descriptor("The GroupName") String groupName,
 		@Descriptor("The StorageType {MEMORY, MEMORY_CLUSTERED, PERSISTED}") String storageType)
 		throws PortalException {
-		
+
 		SchedulerEngineHelperUtil.pause(
 			jobName, groupName, StorageType.valueOf(storageType));
 	}
@@ -231,7 +235,7 @@ public class SchedulerManagerCommand {
 	 * @param storageType
 	 *            The Storage Type of the job. The Storage Type values are
 	 *            MEMORY, MEMORY_CLUSTERED, PERSISTED
-	 * @throws PortalException
+	 * @throws PortalException In the case of errors.
 	 */
 	@Descriptor("Pause Jobs by Group Name and Storage Type")
 	public void pause(
@@ -254,7 +258,7 @@ public class SchedulerManagerCommand {
 	 * @param storageType
 	 *            The Storage Type of the job. The Storage Type values are
 	 *            MEMORY, MEMORY_CLUSTERED, PERSISTED
-	 * @throws PortalException
+	 * @throws PortalException In the case of errors.
 	 */
 	@Descriptor("Resume Job by Job Name, Group Name and Storage Type")
 	public void resume(
@@ -275,7 +279,7 @@ public class SchedulerManagerCommand {
 	 * @param storageType
 	 *            The Storage Type of the job. The Storage Type values are
 	 *            MEMORY, MEMORY_CLUSTERED, PERSISTED
-	 * @throws PortalException
+	 * @throws PortalException In the case of errors.
 	 */
 	@Descriptor("Resume Jobs by Group Name and Storage Type")
 	public void resume(
@@ -292,7 +296,7 @@ public class SchedulerManagerCommand {
 	 *
 	 * @param groupName
 	 *            The group name of the job
-	 * @throws PortalException
+	 * @throws PortalException In the case of errors.
 	 */
 	@Descriptor("Return the count of the Job by groupName that are running. ONLY QUARTZ PERSISTED JOB!!!")
 	public int jobsIsFired(
@@ -307,7 +311,7 @@ public class SchedulerManagerCommand {
 	 *
 	 * @param jobName
 	 *            The job name of the job
-	 * @throws PortalException
+	 * @throws PortalException In the case of errors.
 	 */
 	@Descriptor("Return true if the Job running false otherwise. ONLY QUARTZ PERSISTED JOB!!!")
 	public boolean jobIsFired(
@@ -326,7 +330,7 @@ public class SchedulerManagerCommand {
 	 *
 	 * @param groupName
 	 *            The job name of the job
-	 * @throws PortalException
+	 * @throws PortalException In the case of errors.
 	 */
 	@Descriptor("Print the list of the jobs that are in progress. ONLY QUARTZ PERSISTED JOB!!!")
 	public void listJobsInProgress(
@@ -335,7 +339,8 @@ public class SchedulerManagerCommand {
 
 		System.out.println(
 			ansi().eraseScreen().render(
-				"@|green List of the jobs that are in progress filtered by groupName:|@ @|red " + groupName + " |@"));
+				"@|green List of the jobs that are in progress filtered by groupName:|@ @|red " +
+				groupName + " |@"));
 		System.out.println(getJobsListInProgressTableHeader());
 		System.out.println(getJobsListInProgressTableRows(groupName));
 
@@ -378,7 +383,6 @@ public class SchedulerManagerCommand {
 	 * @param groupName
 	 * @return String Formatted table rows
 	 */
-
 	private String getJobsListInProgressTableRows(String groupName) {
 		List<FiredTrigger> firedTriggerList =
 			QuartzUtils.getFiredTrigger(groupName);
@@ -415,9 +419,10 @@ public class SchedulerManagerCommand {
 	 * 
 	 * @param status
 	 * @return String Formatted table rows
-	 * @throws SchedulerException
+	 * @throws SchedulerException In the case of errors
 	 */
-	private String getJobsListTableRows(String status) throws SchedulerException {
+	private String getJobsListTableRows(String status)
+		throws SchedulerException {
 		List<SchedulerResponse> schedulerResponses =
 						SchedulerEngineHelperUtil.getScheduledJobs();
 		List<SchedulerResponse> schedulerResponsesFiltered =
