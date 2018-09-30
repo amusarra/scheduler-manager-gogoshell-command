@@ -4,20 +4,21 @@
 [![Build Status](https://travis-ci.org/amusarra/scheduler-manager-gogoshell-command.svg?branch=master)](https://travis-ci.org/amusarra/scheduler-manager-gogoshell-command)
 [![Twitter Follow](https://img.shields.io/twitter/follow/antonio_musarra.svg?style=social&label=%40antonio_musarra%20on%20Twitter&style=plastic)](https://twitter.com/antonio_musarra)
 
-This project implements a set of Gogo Shell commands that handle Liferay jobs. The tasks you can perform are:
+This project implements a set of Gogo Shell commands that handle Liferay jobs. 
+The tasks you can perform are:
 
 1.  **list**: List of the all Jobs filtered by state (default ALL)
 2.  **info**: Print detail info of the job
 3.  **pause**: Pause one or more Jobs by Job Name, Group Name and Storage Type
 4.  **resume**: Resume one or more Jobs by Job Name, Group Name and Storage Type
 
-The following commands are valid only for PERSISTED jobs and managed by QUARTZ:
+The following commands are valid only for **PERSISTED** jobs and managed by QUARTZ:
 
 1. **jobIsFired**: Return true if the Job running false otherwise
 2. **jobsIsFired**: Return the count of the Job by groupName that are running
 3. **listJobsInProgress**: Print the list of the jobs that are in progress.
 
-_The version of this project was tested on Liferay 7 CE GA4/GA5 and Liferay DXP SP14_
+_The version (release 1.2.0) of this project was tested on Liferay 7.1 CE GA1
 
 ### 1. Getting Started
 To start testing the plugin you need:
@@ -33,21 +34,25 @@ From your terminal execute the commands:
 	$ cd scheduler-manager-gogoshell-command
 	$ ./gradlew clean build
 
-The last gradle command, create a OSGi bundle that you must deploy on your Liferay instance. You can deploy with this command (replace auto deploy directory with your).
+The last gradle command, create a OSGi bundle that you must deploy on your 
+Liferay instance. You can deploy with this command (replace auto deploy 
+directory with your).
 
 
-	$ cp build/libs/it.dontesta.labs.liferay.gogo.scheduler.manager-1.0.0.jar /opt/liferay-ce-portal-7.0-ga4/deploy/
+	$ cp build/libs/it.dontesta.labs.liferay.gogo.scheduler.manager-1.2.0.jar /opt/liferay-ce-portal-7.1.0-ga1/deploy/
 
-You could deploy also with the deploy gradle task, but must setting the auto.deploy.dir in gradle.properties file.
+You could deploy also with the deploy gradle task, but must setting the 
+auto.deploy.dir in gradle.properties file.
 
 	$ ./gradlew deploy
 
 ### 2. After deploy bundle
-After the deploy of the bundle you can check if the bundle is correctly installed. Connect to Gogo Shell via telnet  and execute **lb** command.
+After the deploy of the bundle you can check if the bundle is correctly installed. 
+Connect to Gogo Shell via telnet  and execute **lb** command.
 
 	$ telnet localhost 11311
 	g! lb|grep Scheduler
-		533|Active     |   10|Scheduler Manager Gogo Shell Command (1.0.0)
+		533|Active     |   10|Scheduler Manager Gogo Shell Command (1.2.0)
 
 Well done! The bundle is in state ACTIVE.
 
@@ -64,7 +69,9 @@ Via Gogo Shell we check deployed commands (that have scheduler as scope).
 		scheduler:jobIsFired
 		scheduler:jobsIsFired
 		scheduler:listJobsInProgress
-The list of commands obtained are those described at the beginning. You can see for each command the usage, by this command (_help scope:commandName_). Follow the help of the four available commands.
+The list of commands obtained are those described at the beginning. You can see 
+for each command the usage, by this command (_help scope:commandName_). 
+Follow the help of the four available commands.
 
 	g! help scheduler:info
 	
