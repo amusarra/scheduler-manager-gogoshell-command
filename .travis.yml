@@ -1,5 +1,4 @@
-# kickstart travis.
+dist: trusty
+sudo: required
 language: java
-jdk:
-  - oraclejdk8
 install: ./gradlew clean build
