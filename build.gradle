@@ -1,24 +1,33 @@
 buildscript {
 	dependencies {
-		classpath group: "com.liferay", name: "com.liferay.gradle.plugins", version: "3.12+"
+		classpath group: "biz.aQute.bnd", name: "biz.aQute.bnd.gradle", version: "4.2.0"
+		classpath (group: "com.liferay", name: "com.liferay.gradle.plugins", version: "4.4.2") {
+			exclude group: "biz.aQute.bnd", module: "biz.aQute.bnd.gradle"
+		}
+		classpath group: "com.liferay", name: "com.liferay.gradle.plugins.defaults", version: "6.0.26"
+		classpath "net.saliman:gradle-properties-plugin:1.4.6"
+
 	}
 
 	repositories {
 		maven {
-			url "https://cdn.lfrs.sl/repository.liferay.com/nexus/content/groups/public"
+			url "https://repository-cdn.liferay.com/nexus/content/groups/public"
 		}
 	}
 }
 
+apply plugin: "com.liferay.root.defaults.plugin"
 apply plugin: "com.liferay.plugin"
+apply plugin: "net.saliman.properties"
 
 dependencies {
-	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "3.0.0"
-	compileOnly group: 'com.liferay', name: 'com.liferay.petra.string', version: '2.0.0'
-	
-	compileOnly group: "org.apache.felix", name: "org.apache.felix.gogo.runtime", version: '1.0.6'
+	compileOnly group: "com.liferay", name: "com.liferay.petra.string", version: "3.0.0"
+	compileOnly group: "com.liferay.portal", name: "com.liferay.portal.kernel", version: "4.4.0"
+	compileOnly group: "org.osgi", name: "org.osgi.annotation.versioning", version: "1.1.0"
 	compileOnly group: "org.osgi", name: "org.osgi.core", version: "6.0.0"
 	compileOnly group: "org.osgi", name: "org.osgi.service.component.annotations", version: "1.3.0"
+	
+	compileOnly group: "org.apache.felix", name: "org.apache.felix.gogo.runtime", version: '1.0.6'
 	
 	compileInclude group: 'org.fusesource.jansi', name: 'jansi', version: '1.16'
 	compileInclude group: 'de.vandermeer', name: 'asciitable', version: '0.3.2'
@@ -28,11 +37,7 @@ repositories {
 	mavenLocal()
 
 	maven {
-		url "https://cdn.lfrs.sl/repository.liferay.com/nexus/content/groups/public"
-	}
-	
-	maven {
-		url "https://cdn.lfrs.sl/repository.liferay.com/nexus/content/groups/public"
+		url "https://repository-cdn.liferay.com/nexus/content/groups/public"
 	}
 	
 }
