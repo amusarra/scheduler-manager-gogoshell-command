@@ -416,8 +416,7 @@ public class SchedulerManagerCommand {
 		throws SchedulerException {
 		List<SchedulerResponse> schedulerResponses =
 			SchedulerEngineHelperUtil.getScheduledJobs();
-		List<SchedulerResponse> schedulerResponsesFiltered =
-			new ArrayList<>();
+		List<SchedulerResponse> schedulerResponsesFiltered;
 
 		AsciiTable at = new AsciiTable();
 		SimpleDateFormat df = new SimpleDateFormat(DateUtil.ISO_8601_PATTERN);

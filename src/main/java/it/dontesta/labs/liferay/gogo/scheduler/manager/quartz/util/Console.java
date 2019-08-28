@@ -28,6 +28,10 @@ package it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.util;
  */
 public final class Console {
 
+	private Console() {
+		throw new IllegalStateException("Utility class");
+	}
+
 	public static void print(String message) {
 		System.out.print(message);
 		System.out.flush();
