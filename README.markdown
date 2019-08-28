@@ -42,7 +42,7 @@ The last gradle command, create a OSGi bundle that you must deploy on your
 Liferay instance. You can deploy with this command (replace auto deploy
 directory with your).
 
-	$ cp build/libs/it.dontesta.labs.liferay.gogo.scheduler.manager-1.2.0.jar /opt/liferay-ce-portal-7.1.0-ga1/deploy/
+	$ cp build/libs/it.dontesta.labs.liferay.gogo.scheduler.manager-1.3.0.jar /opt/liferay-ce-portal-7.2.0-ga1/deploy/
 
 You could deploy also with the deploy gradle task, but must setting the
 auto.deploy.dir in gradle.properties file.
