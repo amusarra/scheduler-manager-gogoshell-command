@@ -4,7 +4,7 @@
 [![Build Status](https://travis-ci.org/amusarra/scheduler-manager-gogoshell-command.svg?branch=master)](https://travis-ci.org/amusarra/scheduler-manager-gogoshell-command)
 [![Twitter Follow](https://img.shields.io/twitter/follow/antonio_musarra.svg?style=social&label=%40antonio_musarra%20on%20Twitter&style=plastic)](https://twitter.com/antonio_musarra)
 
-This project implements a set of Gogo Shell commands that handle Liferay jobs. 
+This project implements a set of Gogo Shell commands that handle Liferay jobs.
 The tasks you can perform are:
 
 1.  **list**: List of the all Jobs filtered by state (default ALL)
@@ -23,7 +23,6 @@ _The version (release 1.2.0) of this project was tested on Liferay 7.1 CE GA1
 ### 1. Getting Started
 To start testing the plugin you need:
 
-
 1.   clone this repository
 2.   build project
 3.   deploy OSGi module (it.dontesta.labs.liferay.gogo.scheduler.manager-$version.jar)
@@ -34,20 +33,19 @@ From your terminal execute the commands:
 	$ cd scheduler-manager-gogoshell-command
 	$ ./gradlew clean build
 
-The last gradle command, create a OSGi bundle that you must deploy on your 
-Liferay instance. You can deploy with this command (replace auto deploy 
+The last gradle command, create a OSGi bundle that you must deploy on your
+Liferay instance. You can deploy with this command (replace auto deploy
 directory with your).
-
 
 	$ cp build/libs/it.dontesta.labs.liferay.gogo.scheduler.manager-1.2.0.jar /opt/liferay-ce-portal-7.1.0-ga1/deploy/
 
-You could deploy also with the deploy gradle task, but must setting the 
+You could deploy also with the deploy gradle task, but must setting the
 auto.deploy.dir in gradle.properties file.
 
 	$ ./gradlew deploy
 
 ### 2. After deploy bundle
-After the deploy of the bundle you can check if the bundle is correctly installed. 
+After the deploy of the bundle you can check if the bundle is correctly installed.
 Connect to Gogo Shell via telnet  and execute **lb** command.
 
 	$ telnet localhost 11311
@@ -56,10 +54,8 @@ Connect to Gogo Shell via telnet  and execute **lb** command.
 
 Well done! The bundle is in state ACTIVE.
 
-
 ### 3. How to use commands
 Via Gogo Shell we check deployed commands (that have scheduler as scope).
-
 
 	g! help|grep scheduler
 		scheduler:info
@@ -69,12 +65,12 @@ Via Gogo Shell we check deployed commands (that have scheduler as scope).
 		scheduler:jobIsFired
 		scheduler:jobsIsFired
 		scheduler:listJobsInProgress
-The list of commands obtained are those described at the beginning. You can see 
-for each command the usage, by this command (_help scope:commandName_). 
+The list of commands obtained are those described at the beginning. You can see
+for each command the usage, by this command (_help scope:commandName_).
 Follow the help of the four available commands.
 
 	g! help scheduler:info
-	
+
 	info - Detail info of the job
 	   scope: scheduler
 	   parameters:
@@ -92,9 +88,9 @@ The storage types are defined in [StorageType](https://github.com/liferay/lifera
 	   options:
 	      --status, -s   Filter the jobs by trigger state {state: COMPLETE,NORMAL,EXPIRED,PAUSED,UNSCHEDULED} [optional]
 
-Command 2 - List of the all Jobs filtered by state (default ALL) 
+Command 2 - List of the all Jobs filtered by state (default ALL)
 
-The states of the trigger defined in [TriggerState Enumeration](https://github.com/liferay/liferay-portal/blob/master/portal-kernel/src/com/liferay/portal/kernel/scheduler/TriggerState.java "TriggerState Enumeration") 
+The states of the trigger defined in [TriggerState Enumeration](https://github.com/liferay/liferay-portal/blob/master/portal-kernel/src/com/liferay/portal/kernel/scheduler/TriggerState.java "TriggerState Enumeration")
 
 	g! help scheduler:pause
 	pause - Pause one or more Jobs by Job Name, Group Name and Storage Type
@@ -104,7 +100,7 @@ The states of the trigger defined in [TriggerState Enumeration](https://github.c
 	      String   The GroupName
 	      String   The StorageType {MEMORY, MEMORY_CLUSTERED, PERSISTED}
 
-Command 3 - Pause one or more Jobs by Job Name, Group Name and Storage Type 
+Command 3 - Pause one or more Jobs by Job Name, Group Name and Storage Type
 
 	g! help scheduler:resume
 	resume - Resume one or more Jobs by Job Name, Group Name and Storage Type
@@ -113,10 +109,10 @@ Command 3 - Pause one or more Jobs by Job Name, Group Name and Storage Type
 	      String   The JobName
 	      String   The GroupName
 	      String   The StorageType {MEMORY, MEMORY_CLUSTERED, PERSISTED}
-Command 4 - Resume one or more Jobs by Job Name, Group Name and Storage Type 
+Command 4 - Resume one or more Jobs by Job Name, Group Name and Storage Type
 
 	g! help scheduler:jobIsFired
-    
+
     jobIsFired - Return true if the Job running false otherwise
        scope: scheduler
        parameters:
@@ -124,7 +120,7 @@ Command 4 - Resume one or more Jobs by Job Name, Group Name and Storage Type
 Command 5 - Return true if the Job running false otherwise
 
 	g! help scheduler:jobsIsFired
-    
+
     jobsIsFired - Return the count of the Job by groupName that are running
        scope: scheduler
        parameters:
@@ -132,28 +128,25 @@ Command 5 - Return true if the Job running false otherwise
 Command 6 - Return the count of the Job by groupName that are running
 
 	g! help scheduler:listJobsInProgress
-    
+
     listJobsInProgress - Print the list of the jobs that are in progress
        scope: scheduler
        parameters:
           String   The GroupName
-Command 7 - Print the list of the jobs that are in progress 
+Command 7 - Print the list of the jobs that are in progress
 
 #### 3.1 Scheduler List
-
 
 	g! scheduler:list
 
 Command 8 - List of the jobs filtered by state (default state is ALL)
 
-![List of the jobs filtered by state](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-list-all.png "List of the jobs filtered by state") 
-
+![List of the jobs filtered by state](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-list-all.png "List of the jobs filtered by state")
 
 	g! scheduler:list --status PAUSED
-Command 9 - List of the jobs filtered by state with PAUSED value 
+Command 9 - List of the jobs filtered by state with PAUSED value
 
-![List of the jobs filtered by state](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-list-paused.png "List of the jobs filtered by state") 
-
+![List of the jobs filtered by state](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-list-paused.png "List of the jobs filtered by state")
 
 #### 3.2 Scheduler Pause and Resume
 
@@ -166,7 +159,6 @@ Command 11 - Resume the job with the name com.liferay...RecentDocumentsMessageLi
 
 #### 3.3 Scheduler Info
 
-
 	g! scheduler:info com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener com.liferay.recent.documents.web.internal.messaging.RecentDocumentsMessageListener MEMORY_CLUSTERED
 Command 12 - Detail of the job with the name com.liferay...RecentDocumentsMessageListener
 
@@ -176,7 +168,7 @@ This command (compared to the list of jobs) shows additional information:
 2.  Destination Name
 3.  Job Exceptions
 
-![Detail of the jobs](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-info.png "Detail of the jobs") 
+![Detail of the jobs](https://www.dontesta.it/wp-content/uploads/2017/07/scheduler-manager-gogoshell-command-info.png "Detail of the jobs")
 
 #### 3.4 Scheduler Check if job fired
 
@@ -193,18 +185,16 @@ Command 13 - Check if job fired with the name com.liferay...RecentDocumentsMessa
     10
 Command 14 - Count job for group MyJobGroup fired
 
-
 ### 4. Resources
 
 1.  [Liferay 7 CE/Liferay DXP Scheduled Task](https://web.liferay.com/it/web/user.26526/blog/-/blogs/liferay-7-ce-liferay-dxp-scheduled-tasks "Liferay 7 CE/Liferay DXP Scheduled Tasks") post by David H Nebinger (on Liferay Blog)
 2.  [Scheduler Example](https://github.com/amusarra/liferay-italia-bo-usergroup/tree/master/modules/application-configuration/scheduler-app "Scheduler Example") on my GitHub account
 3.	[How to implement a custom Gogo shell command for Liferay 7](http://www.marconapolitano.it/en/liferay/86-how-to-implement-a-custom-gogo-shell-command-for-liferay-7.html "How to implement a custom Gogo shell command for Liferay 7") post by Marco Napolitano
 
-	      
 ### Project License
 The MIT License (MIT)
 
-Copyright &copy; 2017 Antonio Musarra's Blog - [https://www.dontesta.it](https://www.dontesta.it "Antonio Musarra's Blog") , [antonio.musarra@gmail.com](mailto:antonio.musarra@gmail.com "Antonio Musarra Email") 
+Copyright &copy; 2017 Antonio Musarra's Blog - [https://www.dontesta.it](https://www.dontesta.it "Antonio Musarra's Blog") , [antonio.musarra@gmail.com](mailto:antonio.musarra@gmail.com "Antonio Musarra Email")
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
