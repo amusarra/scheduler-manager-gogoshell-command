@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
 
 import com.liferay.petra.string.StringPool;
 import it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.pojo.FiredTrigger;
+import it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.util.Console;
 import it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.util.QuartzUtils;
 import org.apache.felix.service.command.Descriptor;
 import org.apache.felix.service.command.Parameter;
@@ -89,12 +90,12 @@ public class SchedulerManagerCommand {
 		}, absentValue = "ALL") String triggerState)
 		throws PortalException {
 
-		System.out.println(
+		Console.println(
 			ansi().eraseScreen().render(
 				"@|green List of the jobs filtered by state:|@ @|red " +
 				triggerState + " |@"));
-		System.out.println(getJobsListTableHeader());
-		System.out.println(getJobsListTableRows(triggerState));
+		Console.println(getJobsListTableHeader());
+		Console.println(getJobsListTableRows(triggerState));
 	}
 
 	/**
@@ -126,24 +127,24 @@ public class SchedulerManagerCommand {
 
 		at.setPadding(5);
 		at.addRule();
-		at.addRow("Job Name", schedulerResponse.getJobName());
+		at.addRow(_COLUMN_JOB_NAME, schedulerResponse.getJobName());
 		at.addRule();
-		at.addRow("Group Name", schedulerResponse.getGroupName());
+		at.addRow(_COLUMN_GROUP_NAME, schedulerResponse.getGroupName());
 		at.addRule();
 		at.addRow(
-			"State",
+			_COLUMN_STATE,
 			SchedulerEngineHelperUtil.getJobState(schedulerResponse).name());
 		at.addRule();
 
 		if (Validator.isNotNull(
 			schedulerResponse.getTrigger().getStartDate())) {
 			at.addRow(
-				"Start Time",
+				_COLUMN_START_TIME,
 				df.format(schedulerResponse.getTrigger().getStartDate()));
 			at.addRule();
 		}
 		else {
-			at.addRow("Start Time", StringPool.DASH);
+			at.addRow(_COLUMN_START_TIME, StringPool.DASH);
 			at.addRule();
 		}
 
@@ -151,28 +152,28 @@ public class SchedulerManagerCommand {
 			SchedulerEngineHelperUtil.getPreviousFireTime(
 				schedulerResponse))) {
 			at.addRow(
-				"Previous Fire Time",
+				_COLUMN_PREVIOUS_FIRE_TIME,
 				df.format(
 					SchedulerEngineHelperUtil.getPreviousFireTime(
 						schedulerResponse)));
 			at.addRule();
 		}
 		else {
-			at.addRow("Previous Fire Time", StringPool.DASH);
+			at.addRow(_COLUMN_PREVIOUS_FIRE_TIME, StringPool.DASH);
 			at.addRule();
 		}
 
 		if (Validator.isNotNull(
 			SchedulerEngineHelperUtil.getNextFireTime(schedulerResponse))) {
 			at.addRow(
-				"Next Fire Time",
+				_COLUMN_NEXT_FIRE_TIME,
 				df.format(
 					SchedulerEngineHelperUtil.getNextFireTime(
 						schedulerResponse)));
 			at.addRule();
 		}
 		else {
-			at.addRow("Next Fire Time", StringPool.DASH);
+			at.addRow(_COLUMN_NEXT_FIRE_TIME, StringPool.DASH);
 			at.addRule();
 		}
 
@@ -182,9 +183,10 @@ public class SchedulerManagerCommand {
 				Calendar.getInstance(),
 				false));
 		at.addRule();
-		at.addRow("Destination Name", schedulerResponse.getDestinationName());
+		at.addRow(
+			_COLUMN_DESTINATION_NAME, schedulerResponse.getDestinationName());
 		at.addRule();
-		at.addRow("Storage Type", schedulerResponse.getStorageType());
+		at.addRow(_COLUMN_STORAGE_TYPE, schedulerResponse.getStorageType());
 		at.addRule();
 
 		if (Validator.isNotNull(SchedulerEngineHelperUtil.getJobExceptions(
@@ -199,10 +201,10 @@ public class SchedulerManagerCommand {
 			at.addRule();
 		}
 
-		System.out.println(
+		Console.println(
 			ansi().eraseScreen().render(
 				"@|green Detail of the job:|@ @|red " + jobName + " |@"));
-		System.out.println(at.render(160));
+		Console.println(at.render(160));
 	}
 
 	/**
@@ -307,12 +309,7 @@ public class SchedulerManagerCommand {
 		@Descriptor("The JobName") String jobName)
 		throws PortalException {
 
-		if (QuartzUtils.getFiredJobCount(jobName) > 0) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return QuartzUtils.getFiredJobCount(jobName) > 0;
 	}
 
 	/**
@@ -326,12 +323,12 @@ public class SchedulerManagerCommand {
 		@Descriptor("The GroupName") String groupName)
 		throws PortalException {
 
-		System.out.println(
+		Console.println(
 			ansi().eraseScreen().render(
 				"@|green List of the jobs that are in progress filtered by groupName:|@ @|red " +
 				groupName + " |@"));
-		System.out.println(getJobsListInProgressTableHeader());
-		System.out.println(getJobsListInProgressTableRows(groupName));
+		Console.println(getJobsListInProgressTableHeader());
+		Console.println(getJobsListInProgressTableRows(groupName));
 
 
 	}
@@ -345,10 +342,11 @@ public class SchedulerManagerCommand {
 		AsciiTable at = new AsciiTable();
 		at.addRule();
 		at.addRow(
-			"Job Name", "Group Name", "Instance Name", "Fired Time",
-			"State");
+			_COLUMN_JOB_NAME, _COLUMN_GROUP_NAME, _COLUMN_INSTANCE_NAME,
+			_COLUMN_FIRED_TIME,
+			_COLUMN_STATE);
 		at.addRule();
-		;
+
 		return at.render(160);
 	}
 
@@ -361,10 +359,12 @@ public class SchedulerManagerCommand {
 		AsciiTable at = new AsciiTable();
 		at.addRule();
 		at.addRow(
-			"Job Name", "Group Name", "State", "Start Time",
-			"Previous Fire Time", "Next Fire Time", "Storage Type");
+			_COLUMN_JOB_NAME, _COLUMN_GROUP_NAME, _COLUMN_STATE,
+			_COLUMN_START_TIME,
+			_COLUMN_PREVIOUS_FIRE_TIME, _COLUMN_NEXT_FIRE_TIME,
+			_COLUMN_STORAGE_TYPE);
 		at.addRule();
-		;
+
 		return at.render(160);
 	}
 
@@ -396,7 +396,7 @@ public class SchedulerManagerCommand {
 			at.addRule();
 		});
 
-		if (firedTriggerList.size() == 0) {
+		if (firedTriggerList.isEmpty()) {
 			at.addRow("No Jobs in progress found");
 			at.setTextAlignment(TextAlignment.CENTER);
 			at.addRule();
@@ -417,7 +417,7 @@ public class SchedulerManagerCommand {
 		List<SchedulerResponse> schedulerResponses =
 			SchedulerEngineHelperUtil.getScheduledJobs();
 		List<SchedulerResponse> schedulerResponsesFiltered =
-			new ArrayList<SchedulerResponse>();
+			new ArrayList<>();
 
 		AsciiTable at = new AsciiTable();
 		SimpleDateFormat df = new SimpleDateFormat(DateUtil.ISO_8601_PATTERN);
@@ -481,7 +481,7 @@ public class SchedulerManagerCommand {
 			at.addRule();
 		});
 
-		if (schedulerResponsesFiltered.size() == 0) {
+		if (schedulerResponsesFiltered.isEmpty()) {
 			at.addRow("No Jobs found");
 			at.setTextAlignment(TextAlignment.CENTER);
 			at.addRule();
@@ -489,4 +489,26 @@ public class SchedulerManagerCommand {
 
 		return at.render(160);
 	}
+
+	private static final String _COLUMN_DESTINATION_NAME = "Destination Name";
+
+	private static final String _COLUMN_JOB_NAME = "Job Name";
+
+	private static final String _COLUMN_FIRED_TIME = "Fired Time";
+
+	private static final String _COLUMN_GROUP_NAME = "Group Name";
+
+	private static final String _COLUMN_INSTANCE_NAME = "Instance Name";
+
+	private static final String _COLUMN_STATE = "State";
+
+	private static final String _COLUMN_START_TIME = "Start Time";
+
+	private static final String _COLUMN_PREVIOUS_FIRE_TIME =
+		"Previous Fire Time";
+
+	private static final String _COLUMN_NEXT_FIRE_TIME = "Next Fire Time";
+
+	private static final String _COLUMN_STORAGE_TYPE = "Next Fire Time";
+
 }
