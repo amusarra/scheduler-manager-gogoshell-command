@@ -2,6 +2,7 @@
 
 [![Antonio Musarra's Blog](https://img.shields.io/badge/maintainer-Antonio_Musarra's_Blog-purple.svg?colorB=6e60cc)](https://www.dontesta.it)
 [![Build Status](https://travis-ci.org/amusarra/scheduler-manager-gogoshell-command.svg?branch=master)](https://travis-ci.org/amusarra/scheduler-manager-gogoshell-command)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=amusarra_liferay-portal-security-audit&metric=alert_status)](https://sonarcloud.io/dashboard?id=amusarra_scheduler-manager-gogoshell-command)
 [![Twitter Follow](https://img.shields.io/twitter/follow/antonio_musarra.svg?style=social&label=%40antonio_musarra%20on%20Twitter&style=plastic)](https://twitter.com/antonio_musarra)
 
 This project implements a set of Gogo Shell commands that handle Liferay jobs.
@@ -190,6 +191,11 @@ Command 14 - Count job for group MyJobGroup fired
 1.  [Liferay 7 CE/Liferay DXP Scheduled Task](https://web.liferay.com/it/web/user.26526/blog/-/blogs/liferay-7-ce-liferay-dxp-scheduled-tasks "Liferay 7 CE/Liferay DXP Scheduled Tasks") post by David H Nebinger (on Liferay Blog)
 2.  [Scheduler Example](https://github.com/amusarra/liferay-italia-bo-usergroup/tree/master/modules/application-configuration/scheduler-app "Scheduler Example") on my GitHub account
 3.	[How to implement a custom Gogo shell command for Liferay 7](http://www.marconapolitano.it/en/liferay/86-how-to-implement-a-custom-gogo-shell-command-for-liferay-7.html "How to implement a custom Gogo shell command for Liferay 7") post by Marco Napolitano
+
+[![alt tag](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=amusarra_liferay-portal-security-audit)
+
+Scheduler Manager Gogo Shell Command project is using SonarCloud for code quality. 
+Thanks to SonarQube Team for free analysis solution for open source projects.
 
 ### Project License
 The MIT License (MIT)
