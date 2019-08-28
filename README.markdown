@@ -19,9 +19,13 @@ The following commands are valid only for **PERSISTED** jobs and managed by QUAR
 2. **jobsIsFired**: Return the count of the Job by groupName that are running
 3. **listJobsInProgress**: Print the list of the jobs that are in progress.
 
-_The version (release 1.2.0) of this project was tested on Liferay 7.1 CE GA1
-
 ### 1. Getting Started
+Release notes:
+1. 1.3.0 Added support for Liferay 7.2.0. Tested on Liferay 7.2.0 GA1 Community Edition
+2. 1.2.0 Added support for Liferay 7.1.2. Tested on Liferay 7.1.2 GA3 Community Edition
+3. 1.1.0 Added commands for count and list the jobs that are running. ONLY QUARTZ PERSISTED JOB!!!
+4. 1.1.0 First release of the Scheduler Manager Gogo Shell Command project. Tested on Liferay 7/DXP
+
 To start testing the plugin you need:
 
 1.   clone this repository
@@ -51,21 +55,22 @@ Connect to Gogo Shell via telnet  and execute **lb** command.
 
 	$ telnet localhost 11311
 	g! lb|grep Scheduler
-		533|Active     |   10|Scheduler Manager Gogo Shell Command (1.2.0)
+		1075|Active     |   10|Scheduler Manager Gogo Shell Command (1.3.0)|1.3.0
 
 Well done! The bundle is in state ACTIVE.
 
 ### 3. How to use commands
-Via Gogo Shell we check deployed commands (that have scheduler as scope).
+Via Gogo Shell we check deployed commands (that have scheduler as scope) via completion.
 
-	g! help|grep scheduler
-		scheduler:info
-		scheduler:list
-		scheduler:pause
-		scheduler:resume
-		scheduler:jobIsFired
-		scheduler:jobsIsFired
-		scheduler:listJobsInProgress
+	g! osgi> scheduler:
+       scheduler:info
+       scheduler:jobIsFired
+       scheduler:jobsIsFired
+       scheduler:list
+       scheduler:listJobsInProgress
+       scheduler:pause
+       scheduler:resume
+       
 The list of commands obtained are those described at the beginning. You can see
 for each command the usage, by this command (_help scope:commandName_).
 Follow the help of the four available commands.
@@ -200,7 +205,7 @@ Thanks to SonarQube Team for free analysis solution for open source projects.
 ### Project License
 The MIT License (MIT)
 
-Copyright &copy; 2017 Antonio Musarra's Blog - [https://www.dontesta.it](https://www.dontesta.it "Antonio Musarra's Blog") , [antonio.musarra@gmail.com](mailto:antonio.musarra@gmail.com "Antonio Musarra Email")
+Copyright &copy; 2019 Antonio Musarra's Blog - [https://www.dontesta.it](https://www.dontesta.it "Antonio Musarra's Blog") , [antonio.musarra@gmail.com](mailto:antonio.musarra@gmail.com "Antonio Musarra Email")
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
