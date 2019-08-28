@@ -1,4 +1,4 @@
-/*
+/**
  * MIT License
  * Copyright (c) 2019 Antonio Musarra's Blog - https://www.dontesta.it
  *
@@ -19,7 +19,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
- **/
+ */
 
 package it.dontesta.labs.liferay.gogo.scheduler.manager.quartz.util;
 
@@ -27,30 +27,25 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.InfrastructureUtil;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
+
+import javax.sql.DataSource;
 
 /**
  * @author Antonio Musarra <antonio.musarra@gmail.com>
  */
 public class QuartzConnectionProvider {
 
-	protected QuartzConnectionProvider() {
-	}
-
 	public static Connection getConnection() {
-
 		if (_connection == null) {
 			synchronized (QuartzConnectionProvider.class) {
 				if (_connection == null) {
-
 					try {
 						DataSource dataSource =
 							InfrastructureUtil.getDataSource();
 
 						_connection = dataSource.getConnection();
 					}
-
 					catch (Exception e) {
 						_log.warn(e, e);
 					}
@@ -59,6 +54,9 @@ public class QuartzConnectionProvider {
 		}
 
 		return _connection;
+	}
+
+	protected QuartzConnectionProvider() {
 	}
 
 	private static final Log _log = LogFactoryUtil.getLog(
