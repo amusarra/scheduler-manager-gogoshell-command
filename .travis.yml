@@ -1,5 +1,15 @@
-# kickstart travis.
+dist: trusty
+sudo: required
 language: java
-jdk:
-  - oraclejdk8
+addons:
+  sonarcloud:
+    organization: "amusarra-github"
+
+script:
+  - sonar-scanner
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
+
 install: ./gradlew clean build
