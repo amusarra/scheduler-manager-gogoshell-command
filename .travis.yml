@@ -1,4 +1,15 @@
 dist: trusty
 sudo: required
 language: java
+addons:
+  sonarcloud:
+    organization: "amusarra-github"
+
+script:
+  - sonar-scanner
+
+cache:
+  directories:
+    - '$HOME/.sonar/cache'
+
 install: ./gradlew clean build
