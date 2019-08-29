@@ -24,7 +24,7 @@ Release notes:
 1. 1.3.0 Added support for Liferay 7.2.0. Tested on Liferay 7.2.0 GA1 Community Edition
 2. 1.2.0 Added support for Liferay 7.1.2. Tested on Liferay 7.1.2 GA3 Community Edition
 3. 1.1.0 Added commands for count and list the jobs that are running. ONLY QUARTZ PERSISTED JOB!!!
-4. 1.1.0 First release of the Scheduler Manager Gogo Shell Command project. Tested on Liferay 7/DXP
+4. 1.0.0 First release of the Scheduler Manager Gogo Shell Command project. Tested on Liferay 7/DXP
 
 To start testing the plugin you need:
 
@@ -197,7 +197,7 @@ Command 14 - Count job for group MyJobGroup fired
 2.  [Scheduler Example](https://github.com/amusarra/liferay-italia-bo-usergroup/tree/master/modules/application-configuration/scheduler-app "Scheduler Example") on my GitHub account
 3.	[How to implement a custom Gogo shell command for Liferay 7](http://www.marconapolitano.it/en/liferay/86-how-to-implement-a-custom-gogo-shell-command-for-liferay-7.html "How to implement a custom Gogo shell command for Liferay 7") post by Marco Napolitano
 
-[![alt tag](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=amusarra_liferay-portal-security-audit)
+[![alt tag](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/dashboard?id=amusarra_scheduler-manager-gogoshell-command2)
 
 Scheduler Manager Gogo Shell Command project is using SonarCloud for code quality. 
 Thanks to SonarQube Team for free analysis solution for open source projects.
