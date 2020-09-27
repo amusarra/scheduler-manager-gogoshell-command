@@ -1,5 +1,5 @@
 Bundle-ContactAddress: https://www.dontesta.it/contatti
-Bundle-Copyright: Antonio Musarra's Blog (c) 2019
+Bundle-Copyright: Antonio Musarra's Blog (c) 2020
 Bundle-Description: Gogo Shell Command Series for Liferay JOBS Management (Example: job list, start and stop, etc.).
 Bundle-Developers: antonio.musarra@gmail.com
 Bundle-DocURL: https://www.dontesta.it/2017/07/16/liferay-7-scheduler-manager-gogo-shell-command
@@ -9,7 +9,7 @@ Bundle-Name: Scheduler Manager Gogo Shell Command
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-SymbolicName: it.dontesta.labs.liferay.gogo.scheduler.manager
 Bundle-Vendor: Antonio Musarra's Blog
-Bundle-Version: 1.3.0
+Bundle-Version: 1.4.0
 Import-Package:\
 	org.apache.felix.service.command;status=provisional;version='[0.10,1)',\
 	!org.antlr.stringtemplate,\

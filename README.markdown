@@ -21,10 +21,11 @@ The following commands are valid only for **PERSISTED** jobs and managed by QUAR
 
 ### 1. Getting Started
 Release notes:
-1. 1.3.0 Added support for Liferay 7.2.0. Tested on Liferay 7.2.0 GA1 Community Edition
-2. 1.2.0 Added support for Liferay 7.1.2. Tested on Liferay 7.1.2 GA3 Community Edition
-3. 1.1.0 Added commands for count and list the jobs that are running. ONLY QUARTZ PERSISTED JOB!!!
-4. 1.0.0 First release of the Scheduler Manager Gogo Shell Command project. Tested on Liferay 7/DXP
+1. 1.4.0 Added support for Liferay 7.3.4. Tested on Liferay 7.3.4 GA5 Community Edition
+2. 1.3.0 Added support for Liferay 7.2.0. Tested on Liferay 7.2.0 GA1 Community Edition
+3. 1.2.0 Added support for Liferay 7.1.2. Tested on Liferay 7.1.2 GA3 Community Edition
+4. 1.1.0 Added commands for count and list the jobs that are running. ONLY QUARTZ PERSISTED JOB!!!
+5. 1.0.0 First release of the Scheduler Manager Gogo Shell Command project. Tested on Liferay 7/DXP
 
 To start testing the plugin you need:
 
@@ -42,7 +43,7 @@ The last gradle command, create a OSGi bundle that you must deploy on your
 Liferay instance. You can deploy with this command (replace auto deploy
 directory with your).
 
-	$ cp build/libs/it.dontesta.labs.liferay.gogo.scheduler.manager-1.3.0.jar /opt/liferay-ce-portal-7.2.0-ga1/deploy/
+	$ cp build/libs/it.dontesta.labs.liferay.gogo.scheduler.manager-1.4.0.jar /opt/liferay-ce-portal-7.3.3-ga4/deploy/
 
 You could deploy also with the deploy gradle task, but must setting the
 auto.deploy.dir in gradle.properties file.
@@ -55,7 +56,7 @@ Connect to Gogo Shell via telnet  and execute **lb** command.
 
 	$ telnet localhost 11311
 	g! lb|grep Scheduler
-		1075|Active     |   10|Scheduler Manager Gogo Shell Command (1.3.0)|1.3.0
+		1075|Active     |   10|Scheduler Manager Gogo Shell Command (1.4.0)|1.4.0
 
 Well done! The bundle is in state ACTIVE.
 
@@ -205,7 +206,7 @@ Thanks to SonarQube Team for free analysis solution for open source projects.
 ### Project License
 The MIT License (MIT)
 
-Copyright &copy; 2019 Antonio Musarra's Blog - [https://www.dontesta.it](https://www.dontesta.it "Antonio Musarra's Blog") , [antonio.musarra@gmail.com](mailto:antonio.musarra@gmail.com "Antonio Musarra Email")
+Copyright &copy; 2020 Antonio Musarra's Blog - [https://www.dontesta.it](https://www.dontesta.it "Antonio Musarra's Blog") , [antonio.musarra@gmail.com](mailto:antonio.musarra@gmail.com "Antonio Musarra Email")
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -217,12 +218,10 @@ furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
 
-<span style="color:#D83410">
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-	IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-	SOFTWARE.
-<span>
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
